@@ -84,4 +84,6 @@ fabric.properties
 #others
 .DS_store
 target/
+.jar
+
 # End of https://www.gitignore.io/api/intellij
