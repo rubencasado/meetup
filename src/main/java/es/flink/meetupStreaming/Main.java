@@ -48,39 +48,13 @@ public class Main {
         String query = "SELECT event.event_name, count (event.event_name) FROM Events GROUP BY TUMBLE (UserActionTime, INTERVAL '5' SECOND), event.event_name";
         Table table = tableEnv.sqlQuery(query);
         DataStream<Row> sql_result = tableEnv.toAppendStream(table, Row.class);
+
+
+        // Sinks de resultados
         sql_result.print();
+        //ElasticSearchSinkRow.addSink(sql_result, "my-index", "my-type","127.0.0.1", 9200, "http" );
 
 
-
-        List<HttpHost> httpHosts = new ArrayList<>();
-        httpHosts.add(new HttpHost("127.0.0.1", 9200, "http"));
-
-
-        ElasticsearchSink.Builder<Row> myEsSinkBuilder = new ElasticsearchSink.Builder<>(httpHosts,
-                new ElasticsearchSinkFunction<Row>() {
-                    public IndexRequest createIndexRequest(Row element) {
-                        Map<String, String> json = new HashMap<>();
-                        json.put("name", element.getField(0).toString());
-                        json.put("count", element.getField(1).toString());
-
-                        return Requests.indexRequest()
-                                .index("my-index")
-                                .type("my-type")
-                                .source(json);
-                    }
-
-                    @Override
-                    public void process(Row element, RuntimeContext ctx, RequestIndexer indexer) {
-                        indexer.add(createIndexRequest(element));
-                    }
-                }
-        );
-
-
-        // configuration for the bulk requests; this instructs the sink to emit after every element, otherwise they would be buffered
-        myEsSinkBuilder.setBulkFlushMaxActions(1);
-        // finally, build and add the sink to the job's pipeline
-        sql_result.addSink(myEsSinkBuilder.build());
 
 
 
@@ -91,10 +65,6 @@ public class Main {
                 .apply(new ContarVentanaGroup());
 
         cuenta.print();
-    */
-
-
-    /*
 
         events.filter(new FiltrarNulos())
                 .setParallelism(2)
@@ -104,13 +74,10 @@ public class Main {
                 .sum(1)
                 .print();
 
-
         events.filter(new FilterNullsEvents())
                 .keyBy("venue")
                 .timeWindow(Time.seconds(5))
                 .apply(new PojoCountPeople()).print();
-
-
 
 
         events.map(new MapTupleCity())                              // mapea a Tuple2 (ciudad, registro)
@@ -119,7 +86,6 @@ public class Main {
                 .timeWindow(Time.seconds(15), Time.seconds(2))      // ventanas deslizante de 15sg actualizado cada 2
                 .apply(new CountPeople())                           // contar registros en cada ventana
                 .print();
-
         */
 
         env.execute("Meetup Flink DataStream");

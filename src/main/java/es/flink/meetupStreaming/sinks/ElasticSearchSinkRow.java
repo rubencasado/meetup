@@ -17,10 +17,10 @@ import java.util.Map;
 
 public class ElasticSearchSinkRow {
 
-     public static void addSink(DataStream<Row> stream, String index, String type){
+     public static void addSink(DataStream<Row> stream, String index, String type, String hostname, int port, String schema){
 
          List<HttpHost> httpHosts = new ArrayList<>();
-         httpHosts.add(new HttpHost("127.0.0.1", 9200, "http"));
+         httpHosts.add(new HttpHost(hostname, port, schema));
 
 
          ElasticsearchSink.Builder<Row> myEsSinkBuilder = new ElasticsearchSink.Builder<>(httpHosts,
@@ -42,7 +42,6 @@ public class ElasticSearchSinkRow {
                      }
                  }
          );
-
 
          // configuration for the bulk requests; this instructs the sink to emit after every element, otherwise they would be buffered
          myEsSinkBuilder.setBulkFlushMaxActions(1);
