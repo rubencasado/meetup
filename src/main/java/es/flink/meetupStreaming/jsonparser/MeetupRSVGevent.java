@@ -1,8 +1,6 @@
 package es.flink.meetupStreaming.jsonparser;
 
-/**
- * Created by bigdata on 10/05/16.
- */
+
 public class MeetupRSVGevent
 {
     private Member member;
