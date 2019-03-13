@@ -67,6 +67,25 @@ under the License.
 			<scope>provided</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-table_2.11</artifactId>
+			<version>1.7.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-streaming-scala_2.11</artifactId>
+			<version>1.7.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-connector-elasticsearch6_2.11</artifactId>
+			<version>1.7.1</version>
+		</dependency>
+
+
+
 		<!-- Add connector dependencies here. They must be in the default scope (compile). -->
 
 		<!-- Example:
