@@ -6,7 +6,7 @@ This tutorial analize real-time data from the social network  [www.meetup.com](w
 
 Details about the ```MeetupRSVGevent``` class can be found in the provided [project template](https://github.com/rubencasado/meetup/blob/master/src/main/java/es/flink/meetupStreaming/jsonparser/MeetupRSVGevent.java).
 
-For details about what is Apache Flink, how it works and how to use de DataStream and Stream SQL, please refer to the slides provided in the course and the official [Apache Flink documentation] (https://ci.apache.org/projects/flink/flink-docs-stable/).
+For details about what is Apache Flink, how it works and how to use de DataStream and Stream SQL, please refer to the slides provided in the course and the official [Apache Flink documentation](https://ci.apache.org/projects/flink/flink-docs-stable/).
 
 ## 1. Clone the repository
 
